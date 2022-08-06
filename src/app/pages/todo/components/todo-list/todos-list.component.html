@@ -1,23 +1,23 @@
 <div>
-  <tabset>
-    <tab (selectTab)="onSelectTab($event)" heading="All" id="tab1"></tab>
-    <tab (selectTab)="onSelectTab($event)" heading="Done"></tab>
+  <tabset (click)="currentPage = 1">
+    <tab *ngFor="let tab of tabs" (selectTab)="onSelectTab($event)" [heading]="tab"></tab>
   </tabset>
 </div>
 <div class="card">
-  <div class="card-header text-center">TODO LIST</div>
+  <div class="card-header text-center">TODO LIST {{currentTab}}</div>
   <div class="card-body">
     <div class="d-flex justify-content-center mb-3">
       <pagination
         class="m-0"
-        [itemsPerPage]="2"
-        [totalItems]="count || 0"
-        (pageChanged)="pageChanged($event)"
+        [itemsPerPage]="3"
+        [totalItems]="(todos | todoPagination : {tab: currentTab}).length"
+        [maxSize]="5"
+        [(ngModel)]="currentPage"
       ></pagination>
     </div>
     <ul class="list-unstyled m-0">
       <app-todo-item
-        *ngFor="let todo of todos | todoPagination : currentPage : currentTab"
+        *ngFor="let todo of todos | todoPagination : {page: currentPage, tab: currentTab}"
         [name]="todo.name"
         [status]="todo.status"
         [disabled]="isAnyLoadingInProgress"

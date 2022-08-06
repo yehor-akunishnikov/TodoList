@@ -28,6 +28,7 @@ export class TodosListComponent implements OnChanges {
   public isAnyLoadingInProgress = false;
   public currentPage = 1;
   public currentTab = 'All';
+  public tabs = ['All', 'Done', 'Active'];
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['loading'] && this.loading) {
@@ -45,10 +46,6 @@ export class TodosListComponent implements OnChanges {
 
   public onEditClick(todo: Todo): void {
     this.todoEditClick.emit(todo);
-  }
-
-  public pageChanged(e: PageChangedEvent) {
-    this.currentPage = e.page;
   }
 
   public onAddClick(name: string): void {
