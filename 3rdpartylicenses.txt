@@ -4,6 +4,9 @@ MIT
 @angular/core
 MIT
 
+@angular/forms
+MIT
+
 @angular/platform-browser
 MIT
 
@@ -17,6 +20,27 @@ MIT
 MIT
 
 @ngrx/store-devtools
+MIT
+
+ngx-bootstrap/component-loader
+MIT
+
+ngx-bootstrap/focus-trap
+MIT
+
+ngx-bootstrap/modal
+MIT
+
+ngx-bootstrap/pagination
+MIT
+
+ngx-bootstrap/positioning
+MIT
+
+ngx-bootstrap/tabs
+MIT
+
+ngx-bootstrap/utils
 MIT
 
 rxjs
