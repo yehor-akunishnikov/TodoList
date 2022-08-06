@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-header text-center">TODO LIST</div>
+  <ul class="card-body m-0 list-unstyled">
+    <li *ngIf="loading?.loadInProgress" class="text-center w-100">
+      <span class="spinner-border text-primary"></span>
+    </li>
+    <app-todo-item
+      *ngFor="let todo of todos"
+      [name]="todo.name"
+      [status]="todo.status"
+      [disabled]="isSomeLoadingInProgress"
+      (clickCheckbox)="onCheckboxClick(todo)"
+      (clickDelete)="onDeleteClick(todo)"
+    ></app-todo-item>
+  </ul>
+  <div class="card-footer"></div>
+</div>

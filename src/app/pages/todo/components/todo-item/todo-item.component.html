@@ -1,0 +1,23 @@
+<li class="card mb-3" [ngClass]="{checked: status}">
+  <div class="card-body d-flex align-items-center">
+    <p
+      class="name d-inline-block align-middle"
+      [attr.title]="name"
+    >
+      {{name}}
+    </p>
+    <p class="m-0 text-nowrap">
+      <button [disabled]="disabled" class="btn btn-sm btn-primary">Edit</button>
+      <span (click)="onDeleteClick()" class="mx-2">
+        <button [disabled]="disabled" class="btn btn-sm btn-danger">Delete</button>
+      </span>
+      <input
+        [disabled]="disabled"
+        [checked]="status"
+        (click)="onCheckboxClick($event)"
+        class="checkbox align-middle"
+        type="checkbox"
+      >
+    </p>
+  </div>
+</li>
