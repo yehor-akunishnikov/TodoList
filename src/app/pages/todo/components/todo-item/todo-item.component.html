@@ -7,9 +7,21 @@
       {{name}}
     </p>
     <p class="m-0 text-nowrap">
-      <button [disabled]="disabled" class="btn btn-sm btn-primary">Edit</button>
-      <span (click)="onDeleteClick()" class="mx-2">
-        <button [disabled]="disabled" class="btn btn-sm btn-danger">Delete</button>
+      <button
+        [disabled]="disabled"
+        (click)="onEditClick()"
+        class="btn btn-sm btn-primary"
+      >
+        Edit
+      </button>
+      <span class="mx-2">
+        <button
+          [disabled]="disabled"
+          (click)="onDeleteClick()"
+          class="btn btn-sm btn-danger"
+        >
+          Delete
+        </button>
       </span>
       <input
         [disabled]="disabled"

@@ -1,3 +1,5 @@
+<a class="go-back-btn btn btn-primary" href="https://yehor-akunishnikov.github.io/JS-Beginner/">Go back</a>
+
 <div class="d-flex align-items-center vw-100 vh-100">
   <div class="container-fluid">
     <div class="row justify-content-center">
@@ -5,8 +7,11 @@
         <app-todo-list
           [todos]="(todos$ | async) || []"
           [loading]="loading$ | async"
+          [count]="count$ | async"
           (todoChange)="onTodoChange($event)"
           (todoDelete)="onTodoDelete($event)"
+          (todoEditClick)="onTodoEditClick($event)"
+          (todoAdd)="onTodoAdd($event)"
         >
         </app-todo-list>
       </div>

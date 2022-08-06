@@ -1,0 +1,28 @@
+<form [formGroup]="form" (submit)="onSubmit($event, form, todo)">
+  <div class="modal-header">
+    <h4 class="modal-title m-0">{{form.value.name}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label for="name" class="form-label">Todo name</label>
+      <input formControlName="name" id="name" class="form-control" type="text">
+    </div>
+    <div>
+      <label for="notes" class="form-label">Your notes</label>
+      <textarea formControlName="notes" class="form-control" id="notes" rows="3"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="me-auto">
+      <label for="status" class="form-label mb-0 me-2">Status:</label>
+      <input class="checkbox align-middle mb-1" formControlName="status" id="status" type="checkbox">
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary">Save</button>
+    <button type="reset" class="btn btn-sm btn-outline-dark" (click)="hide()">Close</button>
+  </div>
+</form>
+
+<app-fullscreen-loader [isLoading]="(loading$ | async)!"></app-fullscreen-loader>

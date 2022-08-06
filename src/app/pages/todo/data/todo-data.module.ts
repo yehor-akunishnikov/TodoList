@@ -7,6 +7,7 @@ import {TodoRestModule} from "../rest/todo-rest.module";
 import {featureKey, featureReducer} from "./store/store";
 import {TodoEffects} from "./store/effects/todo.effects";
 import {TodoDataService} from "./services/todo-data.service";
+import {TodoActionsService} from "./services/todo-actions.service";
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import {TodoDataService} from "./services/todo-data.service";
     StoreModule.forFeature(featureKey, featureReducer),
     EffectsModule.forFeature([TodoEffects]),
   ],
-  providers: [TodoDataService],
+  providers: [TodoDataService, TodoActionsService],
 })
 export class TodoDataModule {
 }

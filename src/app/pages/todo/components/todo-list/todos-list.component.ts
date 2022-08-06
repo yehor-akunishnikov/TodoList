@@ -1,6 +1,8 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 
 import {LoadingState, Todo} from "../../models";
+import {PageChangedEvent} from "ngx-bootstrap/pagination";
+import {TabDirective} from "ngx-bootstrap/tabs";
 
 @Component({
   selector: 'app-todo-list',
@@ -8,7 +10,7 @@ import {LoadingState, Todo} from "../../models";
   styleUrls: ['./todos-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TodosListComponent {
+export class TodosListComponent implements OnChanges {
   @Input() todos: Todo[] = [];
   @Input() loading: LoadingState | null = {
     loadInProgress: true,
@@ -16,15 +18,20 @@ export class TodosListComponent {
     updateInProgress: false,
     deleteInProgress: false,
   };
+  @Input() count: number | null = 0;
 
   @Output() todoChange = new EventEmitter<Todo>();
   @Output() todoDelete = new EventEmitter<Todo>();
+  @Output() todoEditClick = new EventEmitter<Todo>();
+  @Output() todoAdd = new EventEmitter<Todo>();
 
-  public get isSomeLoadingInProgress() {
-    if (this.loading) {
-      return Object.values(this.loading).includes(true);
-    } else {
-      return true;
+  public isAnyLoadingInProgress = false;
+  public currentPage = 1;
+  public currentTab = 'All';
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['loading'] && this.loading) {
+      this.isAnyLoadingInProgress = Object.values(this.loading).includes(true);
     }
   }
 
@@ -34,5 +41,26 @@ export class TodosListComponent {
 
   public onDeleteClick(todo: Todo): void {
     this.todoDelete.emit(todo);
+  }
+
+  public onEditClick(todo: Todo): void {
+    this.todoEditClick.emit(todo);
+  }
+
+  public pageChanged(e: PageChangedEvent) {
+    this.currentPage = e.page;
+  }
+
+  public onAddClick(name: string): void {
+    this.todoAdd.emit({
+      status: false, name, notes: '',
+      creationDate: new Date(),
+    } as Todo);
+  }
+
+  public onSelectTab(e: TabDirective) {
+    if (e.heading) {
+      this.currentTab = e.heading;
+    }
   }
 }

@@ -16,6 +16,7 @@ export class TodoItemComponent {
 
   @Output() clickCheckbox = new EventEmitter<void>();
   @Output() clickDelete = new EventEmitter<void>();
+  @Output() clickEdit = new EventEmitter<void>();
 
   public onCheckboxClick(event: Event): void {
     event.preventDefault();
@@ -26,5 +27,9 @@ export class TodoItemComponent {
 
   public onDeleteClick(): void {
     this.clickDelete.emit();
+  }
+
+  public onEditClick(): void {
+    this.clickEdit.emit();
   }
 }

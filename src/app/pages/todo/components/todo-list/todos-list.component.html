@@ -1,17 +1,35 @@
+<div>
+  <tabset>
+    <tab (selectTab)="onSelectTab($event)" heading="All" id="tab1"></tab>
+    <tab (selectTab)="onSelectTab($event)" heading="Done"></tab>
+  </tabset>
+</div>
 <div class="card">
   <div class="card-header text-center">TODO LIST</div>
-  <ul class="card-body m-0 list-unstyled">
-    <li *ngIf="loading?.loadInProgress" class="text-center w-100">
-      <span class="spinner-border text-primary"></span>
-    </li>
-    <app-todo-item
-      *ngFor="let todo of todos"
-      [name]="todo.name"
-      [status]="todo.status"
-      [disabled]="isSomeLoadingInProgress"
-      (clickCheckbox)="onCheckboxClick(todo)"
-      (clickDelete)="onDeleteClick(todo)"
-    ></app-todo-item>
-  </ul>
-  <div class="card-footer"></div>
+  <div class="card-body">
+    <div class="d-flex justify-content-center mb-3">
+      <pagination
+        class="m-0"
+        [itemsPerPage]="2"
+        [totalItems]="count || 0"
+        (pageChanged)="pageChanged($event)"
+      ></pagination>
+    </div>
+    <ul class="list-unstyled m-0">
+      <app-todo-item
+        *ngFor="let todo of todos | todoPagination : currentPage : currentTab"
+        [name]="todo.name"
+        [status]="todo.status"
+        [disabled]="isAnyLoadingInProgress"
+        (clickCheckbox)="onCheckboxClick(todo)"
+        (clickDelete)="onDeleteClick(todo)"
+        (clickEdit)="onEditClick(todo)"
+      ></app-todo-item>
+    </ul>
+  </div>
+  <div class="card-footer">
+    <app-todo-input (clickAdd)="onAddClick($event)"></app-todo-input>
+  </div>
 </div>
+
+<app-fullscreen-loader [isLoading]="isAnyLoadingInProgress"></app-fullscreen-loader>
